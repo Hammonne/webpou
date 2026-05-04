@@ -62,18 +62,68 @@
 
 
 /***********************************************************************************************/
+/* =Theme tokens */
+/***********************************************************************************************/
+
+:root {
+  --bg-page: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-muted: #e5e5e5;
+  --bg-footer: #f7f7f7;
+  --bg-inverse: #34353a;
+  --text-primary: #1f2021;
+  --text-body: #737272;
+  --text-muted: #4f4f4f;
+  --text-inverse: #ffffff;
+  --border: #f0f0f0;
+  --border-strong: #eeeeee;
+  --input-bg: #ffffff;
+  --input-text: #555555;
+  --input-border: #cccccc;
+  --input-placeholder: #494949;
+  --accent: #fc6e51;
+}
+
+[data-theme="dark"] {
+  --bg-page: #15171c;
+  --bg-surface: #1c1f26;
+  --bg-muted: #22252d;
+  --bg-footer: #181a20;
+  --bg-inverse: #0e1014;
+  --text-primary: #f1f1f1;
+  --text-body: #b8bcc4;
+  --text-muted: #a0a4ac;
+  --text-inverse: #f1f1f1;
+  --border: #2a2d36;
+  --border-strong: #2a2d36;
+  --input-bg: #22252d;
+  --input-text: #e8e8e8;
+  --input-border: #3a3d46;
+  --input-placeholder: #8a8e96;
+  --accent: #fc6e51;
+}
+
+/***********************************************************************************************/
 /* =Common Styles */
 /***********************************************************************************************/
 
 body {
   font-family: 'Raleway', sans-serif;
-  color: #737272;
+  color: var(--text-body);
+  background-color: var(--bg-page);
   line-height: 24px;
   font-size: 13px;
   letter-spacing: 1.2px;
   -webkit-font-smoothing: antialiased;
   padding-top: 68px;
   position: relative;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body, .navbar-default, .dropdown-menu, #footer-section, .form-control, .white-bg, .bg-gray {
+    transition: none;
+  }
 }
 
 a {
@@ -94,11 +144,12 @@ img {
 }
 
 .dark-bg {
-  background: #34353A;
+  background: var(--bg-inverse);
 }
 
 .white-bg {
-  background: #fff;
+  background: var(--bg-surface);
+  transition: background-color .25s ease;
 }
 
 .without-padding {
@@ -118,17 +169,18 @@ img {
 }
 
 .bg-gray {
-  background: #e5e5e5;
+  background: var(--bg-muted);
+  transition: background-color .25s ease;
 }
 
 .form-control::-moz-placeholder {
-  color: #494949;
+  color: var(--input-placeholder);
 }
 .form-control:-ms-input-placeholder {
-  color: #494949;
+  color: var(--input-placeholder);
 }
 .form-control::-webkit-input-placeholder {
-  color: #494949;
+  color: var(--input-placeholder);
 }
 
 /***********************************************************************************************/
@@ -137,7 +189,7 @@ img {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: 700;
-  color: #1f2021;
+  color: var(--text-primary);
   text-transform: uppercase;
 }
 
@@ -331,10 +383,10 @@ p {
 
 .form-control {
   font-size: 12px;
-  color: #555;
-  background-color: #fff;
+  color: var(--input-text);
+  background-color: var(--input-bg);
   background-image: none;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 1px;
   height: auto;
   padding: 9px 12px;
@@ -349,8 +401,8 @@ p {
 }
 
 .form-control:focus {
-  color: #111;
-  border-color: rgba(0,0,0, .7);
+  color: var(--text-primary);
+  border-color: var(--accent);
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -362,7 +414,7 @@ p {
 /***********************************************************************************************/ 
 
 #preloader {
-  background-color: #FFF;
+  background-color: var(--bg-page);
   bottom: 0;
   left: 0;
   position: fixed;
@@ -390,18 +442,19 @@ p {
 *************************************************************************/
 
 .navbar-default {
-  background: #fff;
+  background: var(--bg-surface);
   border: none;
   width: 100%;
   margin-bottom: 0;
   position: absolute;
   top: 0;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--border);
+  transition: background-color .25s ease, border-color .25s ease;
 }
 .navbar.active {
   position: fixed;
   opacity: 0.95;
-  border: 1px solid #E8E8E8;
+  border: 1px solid var(--border);
 }
 
 .navbar-nav {
@@ -409,7 +462,7 @@ p {
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #060606;
+  color: var(--text-primary);
   text-transform: uppercase;
   -webkit-transition: color .3s ease-in-out;
   -moz-transition: color .3s ease-in-out;
@@ -437,22 +490,25 @@ p {
   border-radius: 2px;
   border-top: 0;
   padding: 12px 5px;
+  background-color: var(--bg-surface);
+  border-color: var(--border);
 }
 
 .dropdown-menu>li>a {
   padding: 3px 15px;
   line-height: 1.7;
   letter-spacing: 2px;
+  color: var(--text-primary);
 }
 
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
-  background-color: #fff;
-  color: #fc6e51;
+  background-color: var(--bg-muted);
+  color: var(--accent);
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-  background-color: #fff;
-  color: #fc6e51;
+  background-color: var(--bg-muted);
+  color: var(--accent);
 }
 
 .navbar-default .dropdown:hover>.dropdown-menu {
@@ -1262,11 +1318,11 @@ h6.progress-value {
 }
 
 .white-bg {
-  background: #fff;
+  background: var(--bg-surface);
 }
 
 .dark-bg-1 {
-  background: #333;
+  background: var(--bg-inverse);
 }
 
 .work-process {
@@ -2887,8 +2943,9 @@ ul.download li a img {
 
 #footer-section {
   padding: 80px 0;
-  background: #F7F7F7;
-  border-top: 1px solid #EEEEEE;
+  background: var(--bg-footer);
+  border-top: 1px solid var(--border-strong);
+  transition: background-color .25s ease, border-color .25s ease;
 }
 
 ul.footer-social-links {
@@ -2907,7 +2964,7 @@ ul.footer-social-links li:first-child {
 
 ul.footer-social-links li a {
   font-size: 15px;
-  color: #4F4F4F;
+  color: var(--text-muted);
   display: block;
   text-transform: uppercase;
 }
@@ -3185,6 +3242,37 @@ p.copyright {
     width: 100%!important;
   }
 
+}
+
+/***********************************************************************************************/
+/* =Theme toggle */
+/***********************************************************************************************/
+
+.theme-toggle {
+  background: transparent;
+  border: 0;
+  padding: 15px 12px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color .25s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+  color: var(--accent);
+  outline: none;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+[data-theme="dark"] .navbar-brand img {
+  filter: brightness(0) invert(1);
 }
 
 @media screen and (max-width: 480px) {
